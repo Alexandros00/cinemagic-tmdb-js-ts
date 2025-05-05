@@ -1,0 +1,7 @@
+@use "../../styles/variables.scss" as *;
+
+.infinite-scroll-sentinel {
+  text-align: center;
+  padding: calc($nav-height / 2) 0;
+  font-size: large;
+}

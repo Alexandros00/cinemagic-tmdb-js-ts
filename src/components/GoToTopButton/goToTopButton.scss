@@ -1,0 +1,21 @@
+.go-to-top-button {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  border: none;
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  background-color: rgb(255, 184, 0);
+  cursor: pointer;
+  z-index: 999;
+}
+
+.go-to-top-button:hover,
+.go-to-top-button:focus {
+  background-color: rgb(206, 148, 1);
+}
+
+.go-to-top-icon {
+  height: 1.5rem;
+}

@@ -1,0 +1,25 @@
+.custom-placeholder {
+  background-color: #d8dde5;
+  padding-bottom: 10rem;
+  margin-bottom: 0.5em;
+  width: 100%;
+  animation: showPlaceholder 1.6s infinite;
+}
+
+@keyframes showPlaceholder {
+  0% {
+    background-color: #c7ccd8;
+  }
+  25% {
+    background-color: #d2d7e0;
+  }
+  50% {
+    background-color: #e1e5ec;
+  }
+  75% {
+    background-color: #d2d7e0;
+  }
+  100% {
+    background-color: #c7ccd8;
+  }
+}

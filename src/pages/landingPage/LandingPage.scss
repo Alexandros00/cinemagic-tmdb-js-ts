@@ -1,0 +1,14 @@
+@use "../../styles/variables.scss" as *;
+
+.landing-page {
+  position: relative;
+
+  h2 {
+    text-align: center;
+  }
+}
+
+.sticky-sentinel {
+  height: 0px;
+  width: 100%;
+}

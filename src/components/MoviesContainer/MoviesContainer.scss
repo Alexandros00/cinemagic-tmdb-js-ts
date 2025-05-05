@@ -1,0 +1,31 @@
+@use "../../styles/variables.scss" as *;
+
+.movies-container {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem 5vw;
+  padding-top: 0;
+  position: relative;
+}
+
+@media (min-width: $tablet) {
+  .movies-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: $desktop) {
+  .movies-container {
+    grid-template-columns: repeat(auto-fit, 20rem);
+    max-width: 70rem;
+    justify-content: center;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: $large-desktop) {
+  .movies-container {
+    grid-template-columns: repeat(auto-fit, 20rem);
+    max-width: 90rem;
+  }
+}

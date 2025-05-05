@@ -1,0 +1,41 @@
+.movie-details__review {
+  display: grid;
+  grid-template-columns: max-content max-content 1fr;
+  align-items: center;
+  padding: 0.5rem;
+  box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
+}
+
+.movie-details__review-author-img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 50%;
+  grid-row: span 3;
+  margin: 0 0.7rem 0 0.2rem;
+}
+
+.movie-details__review-author {
+  grid-column: span 2;
+  font-weight: bold;
+}
+
+.movie-details__review-updated-at {
+  grid-column: span 2;
+  font-size: small;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.movie-details__review-content {
+  grid-column: span 3;
+  margin: 0.5rem 0;
+}
+
+.movie-details__review-meter {
+  margin-right: 0.4rem;
+}
+
+.movie-details__review-read-more {
+  margin-left: 0.4rem;
+  text-decoration: none;
+}

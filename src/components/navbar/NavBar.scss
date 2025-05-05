@@ -1,0 +1,23 @@
+@use "../../styles/variables.scss" as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $nav-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  background-color: #032541;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  h1 {
+    margin: 0;
+    text-align: center;
+    // color: black;
+  }
+}

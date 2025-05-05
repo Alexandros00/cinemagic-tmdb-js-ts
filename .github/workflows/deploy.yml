@@ -1,0 +1,70 @@
+name: Deploy assignment app to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Install Cypress Dependencies
+        run: npm install cypress
+
+      - name: Start Development Server
+        run: npm run dev &
+        env:
+          VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
+
+      - name: Wait for Server to Be Ready
+        run: npx wait-on http://localhost:3000
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
+          record: false
+          headless: true
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Sync Files to Server
+        run: |
+          rsync -avz --delete --exclude=node_modules --exclude=dist --rsh="ssh -o StrictHostKeyChecking=no" . ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }}:/assignment/
+
+      - name: Build and Deploy App on Server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }} << 'EOF'
+            set -e
+            cd /assignment
+
+            # Clean up old containers (if any)
+            docker compose down || true
+
+            # Build Docker image locally
+            docker build --build-arg VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }} -t cinemagic-app .
+
+            # Remove unused Docker images to save space
+            docker image prune -af || true
+            docker volume prune -f || true
+
+            # Start the app using Docker Compose
+            docker compose up -d --build
+          EOF
