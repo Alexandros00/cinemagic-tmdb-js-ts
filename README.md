@@ -1,4 +1,6 @@
-> 🎬 **CineMagic** is a personal project designed to demonstrate frontend development best practices using The Movie Database (TMDb) API. It covers a wide range of frontend features such as lazy loading, infinite scroll, modals, search, and responsive design, with TypeScript and Vite.
+> 🚧 Work in progress – actively improving this TypeScript app built with the TMDb API.
+
+> 🎬 **CineMagic** is a personal project designed to demonstrate frontend development best practices using The Movie Database (TMDb) API. It includes features like lazy loading, infinite scroll, search with debounce, dynamic modals, and responsive design – built with TypeScript and Vite.
 
 # CineMagic App 🎥
 
