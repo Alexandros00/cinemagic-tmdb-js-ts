@@ -1,3 +1,5 @@
+> 🎬 **CineMagic** is a personal project designed to demonstrate frontend development best practices using The Movie Database (TMDb) API. It covers a wide range of frontend features such as lazy loading, infinite scroll, modals, search, and responsive design, with TypeScript and Vite.
+
 # CineMagic App 🎥
 
 ## 1 Description
@@ -179,13 +181,13 @@ The modal-component consists of two elements, the overlay (probably not the righ
 Below these there are two reviews, if there is none, there will be a text "No reviews", or in some it my be one only, so one will be displayed.
 Each review is in a card structure, with the image of the author (if there is no image, an icon with a figure will be displayed), the author's nickname, as well as the date of the last update of the review and an html meter side by side with the number of the rating. Underneath, there is the text of the review occupying almost three lines max and then is cut, followed by three dots and an anchor with the text "read the full review" that when clicked will open a new tab going to the page of the review.
 Lastly, there is a css grid containing cards with similar movies in horizontal orientation, scrollable in order to fit them all. I din't put a limit there. Each of those cards has te title, the poster, the rating and the year.
-The animation when opening the modal may need a bit improvement, but decided to move on to the rest.
+The opening animation is functional but will benefit from further polish in future updates.
 
 ### Part V
 
-I installed and set up, vitest, testing-library and cypress in order to create unit tests for functions and for components as well as integration and e2e tests. I created a few, and of course I could write a lot more. My strategy on this would be to:
+I installed and set up, vitest, testing-library and cypress in order to create unit tests for functions and for components as well as integration and e2e tests. Initial tests were written to validate core functionality. Additional tests are planned. My strategy on this would be to:
 
-- Test every function as a unit and while doing it also apply error handlers for every possible case and refactor if and where is needed. Or in the case that I had much more time, to write testing-first code, so to implement the tests based on what the function needs to do and then implement the function to act as this.
+- Test every function as a unit and while doing it also apply error handlers for every possible case and refactor if and where is needed. In future iterations, I plan to follow a test-driven development approach, so to implement the tests based on what the function needs to do and then implement the function to act as this.
 - Same for each component, to test that it renders and includes its basic parts eg:some text, image etc.
 - Then integration tests to verify that the components communicate as they should, preferably in pairs, two components per test.
 - Finally, e2e tests simulating user's interaction in the page
@@ -194,11 +196,11 @@ Of course in the above with mocking functions (eg. from external libraries) and 
 
 ### General comments and information
 
-- The app is partially responsive for tablet, desktop and large-desktop. By partially, i mean that I could do much much more. Fist of all to change the orientation of the MovieCards to horizontal for desktop and large-desktop, and in this way more information could be displayed in a card. Same stands for the modal tat could provide more.
+- The app is partially responsive for tablet, desktop and large-desktop. Partial responsiveness is implemented. Planned improvements include switching MovieCards to a horizontal layout on desktop for more effective use of space. Fist of all to change the orientation of the MovieCards to horizontal for desktop and large-desktop, and in this way more information could be displayed in a card. Same stands for the modal tat could provide more.
 - In each movie card, before the image being displayed a custom loader appears with a smooth animation for better user experience.
 - In case an image can't be loaded, a placeholder appears by using onerror attribute of img element.
 - As mentioned above, there is configuration for running the app in docker container with an nginx as server for the app.
-- Also, I set GitHub Actions and deployed the app on a remote server by pushing committed code. Actually, this setup is still active but it is ok since the server is mine for testing and right now its firewall blocks any inbound traffic except SSH, so if you want to do any commit and push, feel free.
+- Also, I set GitHub Actions and deployed the app on a remote server by pushing committed code. The app is currently deployed via GitHub Actions to a private testing server.
 
 ### Improvements
 
