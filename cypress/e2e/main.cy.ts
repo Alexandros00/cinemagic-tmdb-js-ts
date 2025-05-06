@@ -9,7 +9,7 @@ describe("Main Tests", () => {
 
   it("should render the with the app name", () => {
     cy.get(".navbar").should("exist");
-    cy.contains(".navbar", /cinamagic/i);
+    cy.contains(".navbar", /cinemagic/i);
   });
 
   it("should render the landing page", () => {
