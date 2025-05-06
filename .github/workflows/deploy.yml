@@ -1,4 +1,4 @@
-name: Deploy assignment app to Server
+name: Deploy app app to Server
 
 on:
   push:
@@ -47,13 +47,13 @@ jobs:
 
       - name: Sync Files to Server
         run: |
-          rsync -avz --delete --exclude=node_modules --exclude=dist --rsh="ssh -o StrictHostKeyChecking=no" . ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }}:/assignment/
+          rsync -avz --delete --exclude=node_modules --exclude=dist --rsh="ssh -o StrictHostKeyChecking=no" . ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }}:/myapps/
 
       - name: Build and Deploy App on Server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }} << 'EOF'
             set -e
-            cd /assignment
+            cd /myapps
 
             # Clean up old containers (if any)
             docker compose down || true
