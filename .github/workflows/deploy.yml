@@ -23,7 +23,8 @@ jobs:
 
       - name: Build for Production
         run: |
-          VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }} npm run build
+          echo "VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }}" > .env.production
+          npm run build
 
       - name: Run Cypress Tests on Production Build
         uses: cypress-io/github-action@v5
@@ -45,21 +46,23 @@ jobs:
           rsync -avz --delete --exclude=node_modules --exclude=dist --rsh="ssh -o StrictHostKeyChecking=no" . ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }}:~/myapps/cinemagic-js/
 
       - name: Build and Deploy App on Server
+        env:
+          VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }} << "EOF"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }} << EOF
             set -e
             cd ~/myapps/cinemagic-js
 
-            # Clean up old containers (if any)
+            echo "📦 Cleaning up containers..."
             docker compose down || true
 
-            # Build Docker image with env
-            docker build --no-cache --build-arg VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }} -t cine-magic-js .
+            echo "🚧 Building Docker image with API key..."
+            docker build --no-cache --build-arg VITE_TMDB_API_KEY=\$VITE_TMDB_API_KEY -t cine-magic-js .
 
-            # Cleanup old Docker artifacts
+            echo "🧹 Pruning Docker artifacts..."
             docker image prune -af || true
             docker volume prune -f || true
 
-            # Start fresh
+            echo "🚀 Starting containers..."
             docker compose up -d --build
           EOF
