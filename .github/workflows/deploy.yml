@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "23"
 
       - name: Install Dependencies
         run: npm install
@@ -42,7 +42,7 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
       - name: Sync Files to Server
@@ -59,7 +59,7 @@ jobs:
             docker compose down || true
 
             # Build Docker image locally
-            docker build --build-arg VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }} -t cinemagic-app .
+            docker build --build-arg VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }} -t cine-magic-js .
 
             # Remove unused Docker images to save space
             docker image prune -af || true

@@ -1,15 +1,15 @@
 services:
-  cine-magic:
-    container_name: cine-magic
+  cine-magic-js:
+    container_name: cine-magic-js
     build:
       context: ./
       dockerfile: Dockerfile
-    image: cine-magic:latest
+    image: cine-magic-js:latest
     ports:
       - "80:80"
     networks:
-      - cine-magic-net
+      - cine-magic-js-net
     restart: unless-stopped
 
 networks:
-  cine-magic-net:
+  cine-magic-js-net:
