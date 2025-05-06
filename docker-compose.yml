@@ -8,8 +8,8 @@ services:
     ports:
       - "3001:80"
     networks:
-      - cine-magic-js-net
+      - web
     restart: unless-stopped
 
 networks:
-  cine-magic-js-net:
+  web:
