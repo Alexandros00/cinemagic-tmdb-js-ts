@@ -13,4 +13,4 @@ services:
 
 networks:
   alexkaralis-deploy_web:
-  external: true
+    external: true
