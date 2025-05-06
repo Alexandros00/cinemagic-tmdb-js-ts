@@ -9,8 +9,8 @@ RUN npm install --frozen-lockfile
 COPY . .
 
 ARG VITE_TMDB_API_KEY
-RUN echo "🧪 Injected key: $VITE_TMDB_API_KEY"
-RUN echo "VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY" > .env.production && npm run build
+ENV VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY
+RUN npm run build
 
 # ==========================================
 
