@@ -11,6 +11,7 @@ COPY . .
 ARG VITE_TMDB_API_KEY
 ENV VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY
 
+RUN echo "Building with VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY"
 RUN npm run build
 
 # ==========================================

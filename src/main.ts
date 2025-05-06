@@ -27,6 +27,7 @@ function initializeApp() {
     throw new Error("App element not found");
   }
   const fragment = assemblePageFragment();
+  console.log("TMDB KEY (in code):", import.meta.env.VITE_TMDB_API_KEY); // TODO: remove this line
   app.appendChild(fragment);
 }
 
