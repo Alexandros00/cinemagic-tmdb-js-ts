@@ -1,4 +1,4 @@
-name: Deploy app app to Server
+name: Deploy app to Server
 
 on:
   push:
@@ -21,8 +21,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Install Cypress Dependencies
-        run: npm install cypress
+      # - name: Install Cypress Dependencies
+      #   run: npm install cypress
 
       - name: Start Development Server
         run: npm run dev &
@@ -59,7 +59,7 @@ jobs:
             docker compose down || true
 
             # Build Docker image locally
-            docker build --build-arg VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }} -t cine-magic-js .
+            docker build --no-cache --build-arg VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }} -t cine-magic-js .
 
             # Remove unused Docker images to save space
             docker image prune -af || true
