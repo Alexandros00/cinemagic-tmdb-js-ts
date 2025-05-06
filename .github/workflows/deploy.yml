@@ -46,7 +46,7 @@ jobs:
 
       - name: Build and Deploy App on Server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }} << "EOF"
             set -e
             cd ~/myapps/cinemagic-js
 
