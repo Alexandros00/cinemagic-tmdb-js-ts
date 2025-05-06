@@ -5,8 +5,6 @@ services:
       context: ./
       dockerfile: Dockerfile
     image: cine-magic-js:latest
-    ports:
-      - "3001:80"
     networks:
       - alexkaralis-deploy_web
     restart: unless-stopped
