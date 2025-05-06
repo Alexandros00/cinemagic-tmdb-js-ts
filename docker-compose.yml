@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     image: cine-magic-js:latest
     ports:
-      - "80:80"
+      - "3001:80"
     networks:
       - cine-magic-js-net
     restart: unless-stopped
