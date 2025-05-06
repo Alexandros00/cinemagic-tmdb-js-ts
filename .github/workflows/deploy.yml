@@ -21,23 +21,18 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # - name: Install Cypress Dependencies
-      #   run: npm install cypress
+      - name: Build for Production
+        run: |
+          VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }} npm run build
 
-      - name: Start Development Server
-        run: npm run dev &
-        env:
-          VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
-
-      - name: Wait for Server to Be Ready
-        run: npx wait-on http://localhost:3000
-
-      - name: Run Cypress Tests
+      - name: Run Cypress Tests on Production Build
         uses: cypress-io/github-action@v5
         with:
+          start: npx serve -s dist
+          wait-on: http://localhost:3000
           browser: chrome
-          record: false
           headless: true
+          record: false
 
       - name: Set up SSH
         run: |
@@ -58,13 +53,13 @@ jobs:
             # Clean up old containers (if any)
             docker compose down || true
 
-            # Build Docker image locally
+            # Build Docker image with env
             docker build --no-cache --build-arg VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }} -t cine-magic-js .
 
-            # Remove unused Docker images to save space
+            # Cleanup old Docker artifacts
             docker image prune -af || true
             docker volume prune -f || true
 
-            # Start the app using Docker Compose
+            # Start fresh
             docker compose up -d --build
           EOF
