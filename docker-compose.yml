@@ -8,8 +8,9 @@ services:
     ports:
       - "3001:80"
     networks:
-      - web
+      - alexkaralis-deploy_web
     restart: unless-stopped
 
 networks:
-  web:
+  alexkaralis-deploy_web:
+  external: true
