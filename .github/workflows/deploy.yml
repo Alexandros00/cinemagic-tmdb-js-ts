@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  VITE_TMDB_API_KEY: "${{ secrets.VITE_TMDB_API_KEY }}"
+  VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
 
 jobs:
   build-and-deploy:
@@ -47,21 +47,25 @@ jobs:
           rsync -avz --delete --exclude=node_modules --exclude=dist --rsh="ssh -o StrictHostKeyChecking=no" . ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }}:~/myapps/cinemagic-js/
 
       - name: Build and Deploy App on Server
+        env:
+          VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }} << EOF
-          set -e
-          cd ~/myapps/cinemagic-js
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP_ADDRESS }} "
+            set -e
+            cd ~/myapps/cinemagic-js
 
-          echo "📦 Cleaning up containers..."
-          docker compose down || true
+            echo '📦 Cleaning up containers...'
+            docker compose down || true
 
-          echo "🚧 Building Docker image with API key..."
-          docker build --no-cache --build-arg VITE_TMDB_API_KEY="${{ secrets.VITE_TMDB_API_KEY }}" -t cine-magic-js .
+            echo '🚧 Building Docker image with API key...'
+            docker build --no-cache \
+              --build-arg VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY \
+              -t cine-magic-js .
 
-          echo "🧹 Pruning Docker artifacts..."
-          docker image prune -af || true
-          docker volume prune -f || true
+            echo '🧹 Pruning Docker artifacts...'
+            docker image prune -af || true
+            docker volume prune -f || true
 
-          echo "🚀 Starting containers..."
-          docker compose up -d --build
-          EOF
+            echo '🚀 Starting containers...'
+            docker compose up -d --build
+          "
