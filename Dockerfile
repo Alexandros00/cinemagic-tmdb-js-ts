@@ -5,7 +5,7 @@ COPY package.json package-lock.json ./
 RUN npm install --frozen-lockfile
 COPY . .
 
-ARG VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY
+ARG VITE_TMDB_API_KEY=${VITE_TMDB_API_KEY}
 ENV VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY
 
 RUN VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY npm run build
