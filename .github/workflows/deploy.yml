@@ -52,9 +52,6 @@ jobs:
           set -e
           cd ~/myapps/cinemagic-js
 
-          export VITE_TMDB_API_KEY="${{ secrets.VITE_TMDB_API_KEY }}"
-
-
           echo "📦 Cleaning up containers..."
           docker compose down || true
 
