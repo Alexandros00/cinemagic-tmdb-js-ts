@@ -8,8 +8,6 @@ COPY . .
 ARG VITE_TMDB_API_KEY
 ENV VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY
 
-RUN VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY npm run build
-
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
