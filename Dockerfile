@@ -4,8 +4,11 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install --frozen-lockfile
 COPY . .
-ARG VITE_TMDB_API_KEY
-RUN echo "Injecting key: $VITE_TMDB_API_KEY" && VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY npm run build
+
+ARG VITE_TMDB_API_KEY={VITE_TMDB_API_KEY}
+ENV VITE_TMDB_API_KEY={VITE_TMDB_API_KEY}
+
+RUN VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY npm run build
 
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
