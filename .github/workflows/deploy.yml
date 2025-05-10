@@ -56,7 +56,7 @@ jobs:
           docker compose down || true
 
           echo "🚧 Building Docker image with API key..."
-          docker build --no-cache --build-arg VITE_TMDB_API_KEY=$VITE_TMDB_API_KEY -t cine-magic-js .
+          docker build --no-cache --build-arg VITE_TMDB_API_KEY=${{ secrets.VITE_TMDB_API_KEY }} -t cine-magic-js .
 
           echo "🧹 Pruning Docker artifacts..."
           docker image prune -af || true
